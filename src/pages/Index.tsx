@@ -3,8 +3,6 @@ import { Navigation } from "@/components/Navigation";
 import { RecommendationEngine } from "@/components/RecommendationEngine";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { AIInsights } from "@/components/AIInsights";
-import { Profile } from "@/components/Profile";
-import { Movies } from "@/components/Movies";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("recommendations");
@@ -13,14 +11,10 @@ const Index = () => {
     switch (activeTab) {
       case "recommendations":
         return <RecommendationEngine />;
-      case "movies":
-        return <Movies />;
       case "analytics":
         return <AnalyticsDashboard />;
       case "ai-insights":
         return <AIInsights />;
-      case "profile":
-        return <Profile />;
       default:
         return <RecommendationEngine />;
     }
