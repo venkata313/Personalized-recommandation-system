@@ -11,6 +11,7 @@ interface MovieCardProps {
   year: number;
   description: string;
   recommendationScore?: number;
+  onClick?: () => void;
 }
 
 export const MovieCard = ({ 
@@ -20,10 +21,14 @@ export const MovieCard = ({
   genre, 
   year, 
   description,
-  recommendationScore 
+  recommendationScore,
+  onClick 
 }: MovieCardProps) => {
   return (
-    <div className="group relative bg-gradient-card rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-500 hover:scale-105 border border-border/20">
+    <div 
+      className="group relative bg-gradient-card rounded-2xl overflow-hidden shadow-card hover:shadow-elevated transition-all duration-500 hover:scale-105 border border-border/20 cursor-pointer"
+      onClick={onClick}
+    >
       <div className="relative aspect-[2/3] overflow-hidden">
         <img 
           src={poster} 

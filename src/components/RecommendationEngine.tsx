@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MovieCard } from "./MovieCard";
+import { MovieDetails } from "./MovieDetails";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -103,6 +104,18 @@ const genres = ["All", "Sci-Fi", "Action", "Romance", "Horror", "Drama", "Comedy
 export const RecommendationEngine = () => {
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState<typeof mockMovies[0] | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const handleMovieClick = (movie: typeof mockMovies[0]) => {
+    setSelectedMovie(movie);
+    setIsModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedMovie(null);
+  };
   
   const filteredMovies = mockMovies.filter(movie => {
     const matchesGenre = selectedGenre === "All" || movie.genre === selectedGenre;
@@ -186,7 +199,11 @@ export const RecommendationEngine = () => {
       {/* Movie Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {filteredMovies.map((movie) => (
-          <MovieCard key={movie.id} {...movie} />
+          <MovieCard 
+            key={movie.id} 
+            {...movie} 
+            onClick={() => handleMovieClick(movie)}
+          />
         ))}
       </div>
 
@@ -201,6 +218,13 @@ export const RecommendationEngine = () => {
           </Button>
         </div>
       )}
+      
+      {/* Movie Details Modal */}
+      <MovieDetails 
+        movie={selectedMovie}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };
