@@ -19,8 +19,10 @@ interface NavigationProps {
 export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   const tabs = [
     { id: "recommendations", label: "Recommendations", icon: Film },
+    { id: "movies", label: "Movies", icon: Film },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "ai-insights", label: "AI Insights", icon: Brain },
+    { id: "profile", label: "Profile", icon: User },
   ];
 
   return (
@@ -33,8 +35,8 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
               <Film className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="font-heading text-xl font-bold text-foreground">CineAI</h1>
-              <p className="text-xs text-muted-foreground">ML Recommendation Engine</p>
+              <h1 className="font-heading text-xl font-bold text-foreground">Movie Recommendation System</h1>
+              <p className="text-xs text-muted-foreground">AI-Powered Movie Discovery</p>
             </div>
           </div>
 
@@ -69,7 +71,12 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
               <Bell className="w-4 h-4" />
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></div>
             </Button>
-            <Button variant="ghost" size="sm" className="gap-2">
+            <Button 
+              variant={activeTab === "profile" ? "cinematic" : "ghost"} 
+              size="sm" 
+              className="gap-2"
+              onClick={() => onTabChange("profile")}
+            >
               <User className="w-4 h-4" />
               Profile
             </Button>
