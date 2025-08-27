@@ -11,6 +11,14 @@ import {
   BarChart3,
   Clock
 } from "lucide-react";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+} from "@/components/ui/chart";
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from "recharts";
 
 const MetricCard = ({ 
   title, 
@@ -89,6 +97,101 @@ const PerformanceChart = () => (
     </div>
   </Card>
 );
+
+const GenreDistributionChart = () => {
+  const genreData = [
+    { name: "Action", value: 35, fill: "hsl(var(--primary))" },
+    { name: "Drama", value: 28, fill: "hsl(var(--secondary))" },
+    { name: "Comedy", value: 20, fill: "hsl(var(--accent))" },
+    { name: "Sci-Fi", value: 17, fill: "hsl(var(--primary-glow))" },
+  ];
+
+  return (
+    <Card className="p-6 bg-gradient-card border-border/20">
+      <h3 className="font-heading text-lg font-semibold text-foreground mb-6">Genre Distribution</h3>
+      <div className="h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={genreData}
+              cx="50%"
+              cy="50%"
+              innerRadius={40}
+              outerRadius={80}
+              paddingAngle={5}
+              dataKey="value"
+            >
+              {genreData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.fill} />
+              ))}
+            </Pie>
+            <ChartTooltip content={<ChartTooltipContent />} />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="grid grid-cols-2 gap-4 mt-4">
+        {genreData.map((genre) => (
+          <div key={genre.name} className="flex items-center gap-2">
+            <div 
+              className="w-3 h-3 rounded-full" 
+              style={{ backgroundColor: genre.fill }}
+            />
+            <span className="text-sm text-muted-foreground">{genre.name}</span>
+            <span className="text-sm font-semibold text-foreground ml-auto">{genre.value}%</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+};
+
+const UserEngagementChart = () => {
+  const engagementData = [
+    { day: "Mon", views: 1200, clicks: 240 },
+    { day: "Tue", views: 1800, clicks: 360 },
+    { day: "Wed", views: 1600, clicks: 320 },
+    { day: "Thu", views: 2200, clicks: 440 },
+    { day: "Fri", views: 2800, clicks: 560 },
+    { day: "Sat", views: 3200, clicks: 640 },
+    { day: "Sun", views: 2400, clicks: 480 },
+  ];
+
+  return (
+    <Card className="p-6 bg-gradient-card border-border/20">
+      <h3 className="font-heading text-lg font-semibold text-foreground mb-6">Weekly Engagement</h3>
+      <div className="h-64">
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={engagementData}>
+            <XAxis 
+              dataKey="day" 
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+            />
+            <YAxis 
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "hsl(var(--muted-foreground))", fontSize: 12 }}
+            />
+            <ChartTooltip content={<ChartTooltipContent />} />
+            <Bar dataKey="views" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="clicks" fill="hsl(var(--secondary))" radius={[4, 4, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="flex justify-center gap-6 mt-4">
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-primary" />
+          <span className="text-sm text-muted-foreground">Views</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full bg-secondary" />
+          <span className="text-sm text-muted-foreground">Clicks</span>
+        </div>
+      </div>
+    </Card>
+  );
+};
 
 export const AnalyticsDashboard = () => {
   return (
@@ -183,6 +286,12 @@ export const AnalyticsDashboard = () => {
             </div>
           </div>
         </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <GenreDistributionChart />
+        <UserEngagementChart />
       </div>
     </div>
   );
