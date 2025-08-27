@@ -1,6 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { BarChart, Bar, XAxis, YAxis, PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { 
   TrendingUp, 
   Users, 
@@ -131,59 +133,138 @@ export const AnalyticsDashboard = () => {
       </div>
 
       {/* Performance Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <PerformanceChart />
         
+        {/* Bar Chart */}
+        <Card className="p-6 bg-gradient-card border-border/20">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-accent/20 rounded-lg">
+              <BarChart3 className="w-6 h-6 text-accent" />
+            </div>
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-foreground">Genre Performance</h3>
+              <p className="text-muted-foreground text-sm">Recommendation accuracy by genre</p>
+            </div>
+          </div>
+          
+          <ChartContainer
+            config={{
+              accuracy: { label: "Accuracy", color: "hsl(var(--primary))" },
+            }}
+            className="h-[200px]"
+          >
+            <BarChart
+              data={[
+                { genre: "Action", accuracy: 94 },
+                { genre: "Drama", accuracy: 89 },
+                { genre: "Comedy", accuracy: 92 },
+                { genre: "Sci-Fi", accuracy: 87 },
+                { genre: "Horror", accuracy: 85 },
+              ]}
+            >
+              <XAxis dataKey="genre" />
+              <YAxis />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar dataKey="accuracy" fill="hsl(var(--primary))" radius={4} />
+            </BarChart>
+          </ChartContainer>
+        </Card>
+
+        {/* Pie Chart */}
         <Card className="p-6 bg-gradient-card border-border/20">
           <div className="flex items-center gap-3 mb-6">
             <div className="p-2 bg-secondary/20 rounded-lg">
               <Brain className="w-6 h-6 text-secondary" />
             </div>
             <div>
-              <h3 className="font-heading text-lg font-semibold text-foreground">AI Model Insights</h3>
-              <p className="text-muted-foreground text-sm">Machine learning performance metrics</p>
+              <h3 className="font-heading text-lg font-semibold text-foreground">User Preferences</h3>
+              <p className="text-muted-foreground text-sm">Distribution of user genre preferences</p>
             </div>
           </div>
           
-          <div className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-background-secondary rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <BarChart3 className="w-4 h-4 text-accent" />
-                  <span className="text-sm font-medium text-foreground">Training Epochs</span>
-                </div>
-                <div className="text-xl font-bold text-accent">847</div>
+          <ChartContainer
+            config={{
+              action: { label: "Action", color: "hsl(var(--primary))" },
+              drama: { label: "Drama", color: "hsl(var(--secondary))" },
+              comedy: { label: "Comedy", color: "hsl(var(--accent))" },
+              scifi: { label: "Sci-Fi", color: "hsl(var(--primary-glow))" },
+              other: { label: "Other", color: "hsl(var(--muted))" },
+            }}
+            className="h-[200px]"
+          >
+            <PieChart>
+              <Pie
+                data={[
+                  { name: "Action", value: 35, fill: "hsl(var(--primary))" },
+                  { name: "Drama", value: 25, fill: "hsl(var(--secondary))" },
+                  { name: "Comedy", value: 20, fill: "hsl(var(--accent))" },
+                  { name: "Sci-Fi", value: 15, fill: "hsl(var(--primary-glow))" },
+                  { name: "Other", value: 5, fill: "hsl(var(--muted))" },
+                ]}
+                cx="50%"
+                cy="50%"
+                innerRadius={40}
+                outerRadius={80}
+                paddingAngle={5}
+                dataKey="value"
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+            </PieChart>
+          </ChartContainer>
+        </Card>
+      </div>
+      
+      {/* AI Model Insights */}
+      <Card className="p-6 bg-gradient-card border-border/20">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="p-2 bg-secondary/20 rounded-lg">
+            <Brain className="w-6 h-6 text-secondary" />
+          </div>
+          <div>
+            <h3 className="font-heading text-lg font-semibold text-foreground">AI Model Insights</h3>
+            <p className="text-muted-foreground text-sm">Machine learning performance metrics</p>
+          </div>
+        </div>
+        
+        <div className="space-y-6">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-background-secondary rounded-lg p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <BarChart3 className="w-4 h-4 text-accent" />
+                <span className="text-sm font-medium text-foreground">Training Epochs</span>
               </div>
-              
-              <div className="bg-background-secondary rounded-lg p-4">
-                <div className="flex items-center gap-2 mb-2">
-                  <Clock className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-medium text-foreground">Last Updated</span>
-                </div>
-                <div className="text-xl font-bold text-primary">2m ago</div>
-              </div>
+              <div className="text-xl font-bold text-accent">847</div>
             </div>
             
             <div className="bg-background-secondary rounded-lg p-4">
-              <h4 className="font-medium text-foreground mb-3">Feature Importance</h4>
-              <div className="space-y-2">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">User Rating History</span>
-                  <span className="text-sm font-bold text-primary">0.84</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Genre Preferences</span>
-                  <span className="text-sm font-bold text-secondary">0.72</span>
-                </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-muted-foreground">Watch Time Patterns</span>
-                  <span className="text-sm font-bold text-accent">0.68</span>
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="text-sm font-medium text-foreground">Last Updated</span>
+              </div>
+              <div className="text-xl font-bold text-primary">2m ago</div>
+            </div>
+          </div>
+          
+          <div className="bg-background-secondary rounded-lg p-4">
+            <h4 className="font-medium text-foreground mb-3">Feature Importance</h4>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">User Rating History</span>
+                <span className="text-sm font-bold text-primary">0.84</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Genre Preferences</span>
+                <span className="text-sm font-bold text-secondary">0.72</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-sm text-muted-foreground">Watch Time Patterns</span>
+                <span className="text-sm font-bold text-accent">0.68</span>
               </div>
             </div>
           </div>
-        </Card>
-      </div>
+        </div>
+      </Card>
     </div>
   );
 };
