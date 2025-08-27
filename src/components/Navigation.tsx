@@ -33,8 +33,8 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
               <Film className="w-6 h-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="font-heading text-xl font-bold text-foreground">CineAI</h1>
-              <p className="text-xs text-muted-foreground">ML Recommendation Engine</p>
+              <h1 className="font-heading text-xl font-bold text-foreground">Movie Recommendation System</h1>
+              <p className="text-xs text-muted-foreground">AI-Powered Movie Discovery</p>
             </div>
           </div>
 
