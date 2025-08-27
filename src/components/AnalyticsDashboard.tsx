@@ -11,7 +11,10 @@ import {
   Activity, 
   Brain,
   BarChart3,
-  Clock
+  Clock,
+  Star,
+  Globe,
+  ThumbsUp
 } from "lucide-react";
 
 const MetricCard = ({ 
@@ -103,18 +106,25 @@ export const AnalyticsDashboard = () => {
       {/* Key Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <MetricCard
+          title="Website Visitors"
+          value="45.7K"
+          change="+12.3%"
+          icon={Globe}
+          description="Total visitors today"
+        />
+        <MetricCard
+          title="Total Movie Ratings"
+          value="8.9K"
+          change="+18.5%"
+          icon={Star}
+          description="Ratings submitted today"
+        />
+        <MetricCard
           title="Active Users"
           value="12.4K"
           change="+8.2%"
           icon={Users}
           description="Daily active users"
-        />
-        <MetricCard
-          title="Recommendations Served"
-          value="1.2M"
-          change="+15.7%"
-          icon={Target}
-          description="Total suggestions today"
         />
         <MetricCard
           title="Click-through Rate"
@@ -123,13 +133,71 @@ export const AnalyticsDashboard = () => {
           icon={Eye}
           description="User engagement rate"
         />
-        <MetricCard
-          title="Model Latency"
-          value="42ms"
-          change="-12%"
-          icon={Activity}
-          description="Average response time"
-        />
+      </div>
+
+      {/* Website & Rating Analytics */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <Card className="p-6 bg-gradient-card border-border/20">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-primary/20 rounded-lg">
+              <Globe className="w-6 h-6 text-primary" />
+            </div>
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-foreground">Visitor Analytics</h3>
+              <p className="text-muted-foreground text-sm">Website traffic overview</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Total Visitors (All Time)</span>
+              <span className="text-lg font-bold text-primary">2.8M</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Today's Visitors</span>
+              <span className="text-lg font-bold text-secondary">45.7K</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Unique Visitors</span>
+              <span className="text-lg font-bold text-accent">38.2K</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Returning Visitors</span>
+              <span className="text-lg font-bold text-primary-glow">7.5K</span>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-6 bg-gradient-card border-border/20">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-secondary/20 rounded-lg">
+              <Star className="w-6 h-6 text-secondary" />
+            </div>
+            <div>
+              <h3 className="font-heading text-lg font-semibold text-foreground">Movie Rating Statistics</h3>
+              <p className="text-muted-foreground text-sm">User rating activity</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Total Ratings</span>
+              <span className="text-lg font-bold text-secondary">156K</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Average Rating</span>
+              <span className="text-lg font-bold text-accent">8.2/10</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Ratings Today</span>
+              <span className="text-lg font-bold text-primary">8.9K</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background-secondary rounded-lg">
+              <span className="text-sm font-medium text-foreground">Most Rated Movie</span>
+              <span className="text-sm font-bold text-primary-glow">Quantum Edge</span>
+            </div>
+          </div>
+        </Card>
       </div>
 
       {/* Performance Charts */}
