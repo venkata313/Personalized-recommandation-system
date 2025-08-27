@@ -8,8 +8,19 @@ import {
   Settings, 
   Search,
   User,
-  Bell
+  Bell,
+  Share2,
+  Copy,
+  ExternalLink
 } from "lucide-react";
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "@/hooks/use-toast";
 
 interface NavigationProps {
   activeTab: string;
@@ -23,6 +34,41 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
     { id: "ai-insights", label: "AI Insights", icon: Brain },
     { id: "profile", label: "Profile", icon: User },
   ];
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      toast({
+        title: "Link copied!",
+        description: "Website link copied to clipboard",
+      });
+    } catch (error) {
+      toast({
+        title: "Failed to copy",
+        description: "Please copy the link manually",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleSocialShare = (platform: string) => {
+    const url = encodeURIComponent(window.location.href);
+    const title = encodeURIComponent("Check out this amazing Movie Recommendation System!");
+    const description = encodeURIComponent("Discover your next favorite movie with AI-powered recommendations");
+
+    const shareUrls = {
+      twitter: `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      whatsapp: `https://wa.me/?text=${title}%20${url}`,
+      telegram: `https://t.me/share/url?url=${url}&text=${title}`,
+    };
+
+    const shareUrl = shareUrls[platform as keyof typeof shareUrls];
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+  };
 
   return (
     <nav className="bg-gradient-card border-b border-border/20 sticky top-0 z-50 backdrop-blur-lg">
@@ -70,6 +116,44 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
               <Bell className="w-4 h-4" />
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-primary rounded-full"></div>
             </Button>
+            
+            {/* Share Website */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <Share2 className="w-4 h-4" />
+                  Share
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuItem onClick={handleCopyLink} className="gap-2">
+                  <Copy className="w-4 h-4" />
+                  Copy Link
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => handleSocialShare('twitter')} className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Share on Twitter
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSocialShare('facebook')} className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Share on Facebook
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSocialShare('linkedin')} className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Share on LinkedIn
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSocialShare('whatsapp')} className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Share on WhatsApp
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleSocialShare('telegram')} className="gap-2">
+                  <ExternalLink className="w-4 h-4" />
+                  Share on Telegram
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <Button variant="ghost" size="sm" className="gap-2">
               <User className="w-4 h-4" />
               Profile
