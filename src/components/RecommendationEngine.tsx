@@ -10,6 +10,10 @@ import quantumEdge from "@/assets/movie-quantum-edge.jpg";
 import shadowProtocol from "@/assets/movie-shadow-protocol.jpg";
 import midnightParis from "@/assets/movie-midnight-paris.jpg";
 import theVeil from "@/assets/movie-the-veil.jpg";
+import lastSymphony from "@/assets/movie-last-symphony.jpg";
+import echoesTomorrow from "@/assets/movie-echoes-tomorrow.jpg";
+import officeChaos from "@/assets/movie-office-chaos.jpg";
+import weddingMayhem from "@/assets/movie-wedding-mayhem.jpg";
 
 const mockMovies = [
   {
@@ -51,6 +55,46 @@ const mockMovies = [
     year: 2024,
     description: "When the barrier between worlds grows thin, ancient terrors emerge to challenge everything we know about reality.",
     recommendationScore: 76
+  },
+  {
+    id: "5",
+    title: "The Last Symphony",
+    poster: lastSymphony,
+    rating: 9.1,
+    genre: "Drama",
+    year: 2024,
+    description: "A powerful story about a renowned composer facing his greatest challenge when he begins to lose his hearing.",
+    recommendationScore: 94
+  },
+  {
+    id: "6",
+    title: "Echoes of Tomorrow",
+    poster: echoesTomorrow,
+    rating: 8.5,
+    genre: "Drama",
+    year: 2024,
+    description: "In a post-apocalyptic world, a soldier must choose between duty and humanity in this emotional war drama.",
+    recommendationScore: 87
+  },
+  {
+    id: "7",
+    title: "Office Chaos",
+    poster: officeChaos,
+    rating: 7.6,
+    genre: "Comedy",
+    year: 2024,
+    description: "A hilarious workplace comedy where everything that can go wrong does go wrong in the most unexpected ways.",
+    recommendationScore: 81
+  },
+  {
+    id: "8",
+    title: "Wedding Mayhem",
+    poster: weddingMayhem,
+    rating: 8.0,
+    genre: "Comedy",
+    year: 2024,
+    description: "A romantic comedy about a wedding day where absolutely nothing goes according to plan, but love finds a way.",
+    recommendationScore: 85
   }
 ];
 
