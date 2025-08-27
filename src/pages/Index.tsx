@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { RecommendationEngine } from "@/components/RecommendationEngine";
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { AIInsights } from "@/components/AIInsights";
+import { UserProfile } from "@/components/UserProfile";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("recommendations");
@@ -15,6 +16,8 @@ const Index = () => {
         return <AnalyticsDashboard />;
       case "ai-insights":
         return <AIInsights />;
+      case "profile":
+        return <UserProfile />;
       default:
         return <RecommendationEngine />;
     }

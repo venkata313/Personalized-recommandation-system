@@ -21,6 +21,7 @@ export const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
     { id: "recommendations", label: "Recommendations", icon: Film },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "ai-insights", label: "AI Insights", icon: Brain },
+    { id: "profile", label: "Profile", icon: User },
   ];
 
   return (
